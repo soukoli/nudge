@@ -48,7 +48,7 @@ export function FamilyStatusHub({
       >
         {/* Logo */}
         <Image
-          src="/logo.png"
+          src="/images/logo.png"
           alt="Keep Close"
           width={48}
           height={48}

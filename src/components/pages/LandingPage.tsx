@@ -44,7 +44,7 @@ export function LandingPage() {
             className="mb-10"
           >
             <Image
-              src="/logo.png"
+              src="/images/logo.png"
               alt="Keep Close"
               width={80}
               height={80}
@@ -170,7 +170,7 @@ export function LandingPage() {
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Image
-              src="/logo.png"
+              src="/images/logo.png"
               alt="Keep Close"
               width={28}
               height={28}

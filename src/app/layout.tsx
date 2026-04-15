@@ -13,8 +13,24 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Family Checks",
-  description: "Organize your family life together",
+  title: "Keep Close",
+  description: "Keep your family close — even when life gets fast. Gentle reminders for the small acts that keep families together.",
+  icons: {
+    icon: [
+      { url: '/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicons/favicon.ico', sizes: 'any' },
+    ],
+    apple: [
+      { url: '/favicons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/favicons/site.webmanifest',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Keep Close',
+  },
 };
 
 export default function RootLayout({
