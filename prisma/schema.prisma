@@ -1,0 +1,212 @@
+// Keep Close - Prisma Schema
+// A gentle reminder app for families
+// "Keep your family close — even when life gets fast."
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ===== FAMILY =====
+model Family {
+  id        String   @id @default(cuid())
+  name      String
+  shareCode String   @unique @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members FamilyMember[]
+  assets  Asset[]
+  nudges  Nudge[]
+}
+
+// ===== FAMILY MEMBER =====
+model FamilyMember {
+  id         String     @id @default(cuid())
+  familyId   String
+  family     Family     @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  name       String
+  nickname   String?
+  avatarUrl  String?
+  birthDate  DateTime?
+  memberType MemberType @default(ADULT)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  // Nudges targeted to this member (personal nudges)
+  targetedNudges Nudge[] @relation("NudgeTarget")
+  // Nudges created by this member
+  createdNudges  Nudge[] @relation("NudgeCreator")
+  // Nudges completed by this member
+  completions    NudgeCompletion[]
+
+  @@index([familyId])
+}
+
+enum MemberType {
+  ADULT
+  CHILD_BABY      // 0-1
+  CHILD_TODDLER   // 1-3
+  CHILD_PRESCHOOL // 3-6
+  CHILD_SCHOOL    // 6-12
+  CHILD_TEEN      // 13-18
+  PET             // For pets like cats, dogs
+  OTHER
+}
+
+// ===== ASSET (car, house, cottage) =====
+model Asset {
+  id          String    @id @default(cuid())
+  familyId    String
+  family      Family    @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  name        String
+  assetType   AssetType
+  description String?
+  imageUrl    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  nudges Nudge[]
+
+  @@index([familyId])
+}
+
+enum AssetType {
+  CAR
+  HOUSE
+  APARTMENT
+  COTTAGE
+  GARDEN
+  OTHER
+}
+
+// ===== NUDGE (gentle reminder) =====
+// A nudge is NOT a task - it's a gentle reminder of what matters
+model Nudge {
+  id       String @id @default(cuid())
+  familyId String
+  family   Family @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  // What this nudge is about
+  title       String
+  description String?
+  emoji       String?  // Optional emoji for visual appeal
+  category    NudgeCategory
+
+  // Who/what this nudge relates to
+  memberId String?       // Related to a family member
+  member   FamilyMember? @relation("NudgeTarget", fields: [memberId], references: [id], onDelete: Cascade)
+  assetId  String?       // Related to an asset
+  asset    Asset?        @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  // Visibility & targeting
+  visibility      NudgeVisibility @default(SHARED)
+  targetMemberId  String?         // If PERSONAL, who should see this
+  targetMember    FamilyMember?   @relation("NudgeCreator", fields: [targetMemberId], references: [id], onDelete: SetNull)
+
+  // Scheduling
+  frequency     NudgeFrequency @default(DAILY)
+  frequencyDays Int[]          // For CUSTOM: which days of week (0-6, 0=Sunday)
+  
+  // State
+  isActive      Boolean   @default(true)
+  lastShownAt   DateTime?
+  lastDoneAt    DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  completions NudgeCompletion[]
+
+  @@index([familyId])
+  @@index([memberId])
+  @@index([assetId])
+  @@index([visibility])
+  @@index([targetMemberId])
+}
+
+enum NudgeCategory {
+  // Relationships & Connection
+  QUALITY_TIME    // "Play with your kids"
+  CALL            // "Call your parents"
+  CHECK_IN        // "Ask how they're doing"
+  APPRECIATION    // "Tell them you're proud"
+  
+  // Care & Wellbeing
+  HEALTH          // "Schedule a checkup"
+  SELF_CARE       // "Take time for yourself"
+  PET_CARE        // "Play with the cat"
+  
+  // Home & Life
+  HOME            // "Water the plants"
+  BILLS           // "Pay electricity"
+  ERRANDS         // "Buy groceries"
+  
+  // Special Moments
+  CELEBRATION     // "Birthday coming up"
+  MEMORY          // "Look at old photos together"
+  
+  OTHER
+}
+
+enum NudgeVisibility {
+  SHARED    // Everyone in the family can see (and complete)
+  PERSONAL  // Only the target member can see
+}
+
+enum NudgeFrequency {
+  DAILY     // Show every day
+  WEEKLY    // Show once a week
+  MONTHLY   // Show once a month
+  CUSTOM    // Show on specific days (use frequencyDays)
+  ONCE      // Show only once, then mark as done
+}
+
+// ===== NUDGE COMPLETION =====
+// When someone acknowledges/completes a nudge
+model NudgeCompletion {
+  id          String   @id @default(cuid())
+  nudgeId     String
+  nudge       Nudge    @relation(fields: [nudgeId], references: [id], onDelete: Cascade)
+  completedBy String?  // Member who completed it
+  member      FamilyMember? @relation(fields: [completedBy], references: [id], onDelete: SetNull)
+  completedAt DateTime @default(now())
+  note        String?  // Optional note
+
+  @@index([nudgeId])
+  @@index([completedBy])
+}
+
+// ===== NUDGE TEMPLATES (for inspiration) =====
+model NudgeTemplate {
+  id          String        @id @default(cuid())
+  title       String
+  titleKey    String?       @unique // i18n key
+  description String?
+  emoji       String?
+  category    NudgeCategory
+  
+  // Who this template is good for
+  applicableTo    ApplicableTo
+  memberTypes     MemberType[]
+  assetTypes      AssetType[]
+  
+  // Default settings
+  defaultFrequency NudgeFrequency @default(WEEKLY)
+  
+  // Community features (for future)
+  isBuiltIn   Boolean @default(true)  // System template vs user-created
+  usageCount  Int     @default(0)     // How many times used
+  likeCount   Int     @default(0)     // Community likes
+}
+
+enum ApplicableTo {
+  MEMBER
+  ASSET
+  FAMILY
+  ANY
+}
