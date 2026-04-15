@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Keep Close",
+  title: "Nudge",
   description: "Keep your family close — even when life gets fast. Gentle reminders for the small acts that keep families together.",
   icons: {
     icon: [
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'Keep Close',
+    title: 'Nudge',
   },
 };
 

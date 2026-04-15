@@ -45,7 +45,7 @@ export function Sidebar() {
       <Link href="/dashboard" className="sidebar-logo">
         <Image
           src="/images/logo.png"
-          alt="Keep Close"
+          alt="Nudge"
           width={40}
           height={40}
           className="w-10 h-10"

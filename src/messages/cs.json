@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Keep Close",
+    "appName": "Nudge",
     "loading": "Načítání...",
     "save": "Uložit",
     "cancel": "Zrušit",
@@ -90,7 +90,7 @@
     "checkOnGrandparents": "Ozvi se prarodičům"
   },
   "onboarding": {
-    "welcome": "Vítej v Keep Close",
+    "welcome": "Vítej v Nudge",
     "welcomeDescription": "Drž svou rodinu blízko — i když je život rychlý",
     "step1": "Pojmenuj rodinu",
     "step2": "Přidej členy rodiny",

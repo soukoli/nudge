@@ -40,7 +40,7 @@ export function ShareModal({
     if (navigator.share) {
       try {
         await navigator.share({
-          title: `Join ${familyName} on Keep Close`,
+          title: `Join ${familyName} on Nudge`,
           text: `Use this code to join our family: ${shareCode}`,
           url: shareUrl,
         });
@@ -148,7 +148,7 @@ export function ShareModal({
         <div className="text-sm text-[var(--color-foreground-muted)] space-y-2">
           <p className="font-medium">How to join:</p>
           <ol className="list-decimal list-inside space-y-1">
-            <li>Open Keep Close app</li>
+            <li>Open Nudge app</li>
             <li>Select "Join Family"</li>
             <li>Enter the code above</li>
           </ol>

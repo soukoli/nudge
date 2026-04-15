@@ -45,7 +45,7 @@ export function LandingPage() {
           >
             <Image
               src="/images/logo.png"
-              alt="Keep Close"
+              alt="Nudge"
               width={80}
               height={80}
               className="mx-auto"
@@ -171,11 +171,11 @@ export function LandingPage() {
           <div className="flex items-center gap-3">
             <Image
               src="/images/logo.png"
-              alt="Keep Close"
+              alt="Nudge"
               width={28}
               height={28}
             />
-            <span className="font-medium">Keep Close</span>
+            <span className="font-medium">Nudge</span>
           </div>
           <p className="text-sm text-[var(--color-text-muted)]">
             Made with love for families everywhere

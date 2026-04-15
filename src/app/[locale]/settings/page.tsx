@@ -307,7 +307,7 @@ export default function SettingsPage() {
                 </p>
                 <p className="text-sm text-[var(--color-foreground-muted)]">
                   We don't track behavior, measure performance, or sell your personal information. 
-                  Keep Close simply shows what matters — nothing more.
+                  Nudge simply shows what matters — nothing more.
                 </p>
               </CardContent>
             </Card>
@@ -353,7 +353,7 @@ export default function SettingsPage() {
 
         {/* App Info */}
         <div className="mt-8 text-center text-sm text-[var(--color-foreground-muted)]">
-          <p>Keep Close v1.0.0</p>
+          <p>Nudge v1.0.0</p>
           <p>Made with love for families</p>
         </div>
       </div>

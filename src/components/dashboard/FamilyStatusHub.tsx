@@ -49,7 +49,7 @@ export function FamilyStatusHub({
         {/* Logo */}
         <Image
           src="/images/logo.png"
-          alt="Keep Close"
+          alt="Nudge"
           width={48}
           height={48}
           className="mb-1"

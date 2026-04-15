@@ -162,7 +162,7 @@ export default function DashboardPage() {
       <Modal
         isOpen={isCreateFamilyOpen}
         onClose={() => {}}
-        title="Welcome to Keep Close"
+        title="Welcome to Nudge"
         size="sm"
         footer={
           <Button 
