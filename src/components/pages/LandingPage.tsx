@@ -46,8 +46,8 @@ export function LandingPage() {
             <Image
               src="/images/logo.png"
               alt="Nudge"
-              width={80}
-              height={80}
+              width={120}
+              height={120}
               className="mx-auto"
               priority
             />
@@ -172,8 +172,8 @@ export function LandingPage() {
             <Image
               src="/images/logo.png"
               alt="Nudge"
-              width={28}
-              height={28}
+              width={40}
+              height={40}
             />
             <span className="font-medium">Nudge</span>
           </div>

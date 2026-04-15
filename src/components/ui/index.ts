@@ -28,3 +28,6 @@ export type { SelectProps, SelectOption } from './Select';
 
 export { DatePicker } from './DatePicker';
 export type { DatePickerProps } from './DatePicker';
+
+export { AvatarUpload } from './AvatarUpload';
+export type { AvatarUploadProps } from './AvatarUpload';

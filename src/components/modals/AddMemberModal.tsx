@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { User, Users, Camera } from 'lucide-react';
-import { Modal, Input, Select, Button, Avatar, DatePicker } from '@/components/ui';
+import { User, Users } from 'lucide-react';
+import { Modal, Input, Select, Button, DatePicker, AvatarUpload } from '@/components/ui';
 import type { CreateMemberInput } from '@/lib/types';
 
 export interface AddMemberModalProps {
@@ -35,6 +35,7 @@ export function AddMemberModal({
     nickname: '',
     memberType: 'ADULT',
     birthDate: '',
+    avatarUrl: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -68,6 +69,7 @@ export function AddMemberModal({
         nickname: '',
         memberType: 'ADULT',
         birthDate: '',
+        avatarUrl: '',
       });
       onClose();
     } catch (err) {
@@ -83,6 +85,7 @@ export function AddMemberModal({
       nickname: '',
       memberType: 'ADULT',
       birthDate: '',
+      avatarUrl: '',
     });
     setError(null);
     onClose();
@@ -113,22 +116,14 @@ export function AddMemberModal({
       }
     >
       <div className="space-y-5" onKeyDown={handleKeyDown}>
-        {/* Avatar Preview */}
+        {/* Avatar Upload */}
         <div className="flex justify-center">
-          <div className="relative">
-            <Avatar
-              size="xl"
-              fallback={formData.name || 'New'}
-              className="w-24 h-24"
-            />
-            <button
-              type="button"
-              className="absolute bottom-0 right-0 w-8 h-8 rounded-full bg-[var(--color-accent)] text-white flex items-center justify-center shadow-lg hover:bg-[var(--color-accent-hover)] transition-colors"
-              title="Upload photo"
-            >
-              <Camera size={16} />
-            </button>
-          </div>
+          <AvatarUpload
+            currentImage={formData.avatarUrl || undefined}
+            fallback={formData.name || 'New'}
+            onImageChange={(imageData) => handleChange('avatarUrl', imageData || '')}
+            size="xl"
+          />
         </div>
 
         {/* Name */}

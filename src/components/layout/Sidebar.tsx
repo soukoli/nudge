@@ -46,9 +46,9 @@ export function Sidebar() {
         <Image
           src="/images/logo.png"
           alt="Nudge"
-          width={40}
-          height={40}
-          className="w-10 h-10"
+          width={56}
+          height={56}
+          className="w-14 h-14"
         />
       </Link>
 

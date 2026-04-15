@@ -50,8 +50,8 @@ export function FamilyStatusHub({
         <Image
           src="/images/logo.png"
           alt="Nudge"
-          width={48}
-          height={48}
+          width={72}
+          height={72}
           className="mb-1"
         />
         
