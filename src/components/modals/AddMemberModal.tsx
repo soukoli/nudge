@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { User, Users, Calendar, Camera } from 'lucide-react';
-import { Modal, Input, Select, Button, Avatar } from '@/components/ui';
+import { User, Users, Camera } from 'lucide-react';
+import { Modal, Input, Select, Button, Avatar, DatePicker } from '@/components/ui';
 import type { CreateMemberInput } from '@/lib/types';
 
 export interface AddMemberModalProps {
@@ -88,6 +88,13 @@ export function AddMemberModal({
     onClose();
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -105,7 +112,7 @@ export function AddMemberModal({
         </>
       }
     >
-      <div className="space-y-5">
+      <div className="space-y-5" onKeyDown={handleKeyDown}>
         {/* Avatar Preview */}
         <div className="flex justify-center">
           <div className="relative">
@@ -152,12 +159,11 @@ export function AddMemberModal({
         />
 
         {/* Birth Date */}
-        <Input
+        <DatePicker
           label="Birth Date (optional)"
-          type="date"
           value={formData.birthDate || ''}
-          onChange={(e) => handleChange('birthDate', e.target.value)}
-          icon={Calendar}
+          onChange={(value) => handleChange('birthDate', value)}
+          placeholder="Select birth date..."
         />
 
         {/* Error message */}
