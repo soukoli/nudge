@@ -166,8 +166,8 @@ export function AddMemberModal({
         )}
 
         {/* Info note */}
-        <p className="text-sm text-[var(--color-text-muted)] text-center">
-          Relevant check reminders will be automatically created based on member type.
+        <p className="text-sm text-[var(--color-foreground-muted)] text-center">
+          Add family members to keep everyone close.
         </p>
       </div>
     </Modal>
