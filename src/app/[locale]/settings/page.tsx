@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Globe, Palette, Bell, Shield, Trash2, LogOut, Pencil, Check, X, Sun, Moon, Monitor } from 'lucide-react';
+import { Globe, Palette, Bell, Shield, AlertTriangle, LogOut, Trash2, Pencil, Check, X, Sun, Moon, Monitor } from 'lucide-react';
 import { AppShell } from '@/components/layout';
-import { Card, CardHeader, CardTitle, CardContent, Button, Input, Badge } from '@/components/ui';
+import { Card, CardHeader, CardTitle, CardContent, Button, Input, Badge, ConfirmationModal } from '@/components/ui';
 import { ShareModal } from '@/components/modals';
 import { useFamily, clearFamilyId } from '@/hooks';
 import { useTheme } from '@/components/ThemeProvider';
@@ -19,6 +19,8 @@ export default function SettingsPage() {
   const pathname = usePathname();
   
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   
   // Family name editing
   const [isEditingName, setIsEditingName] = useState(false);
@@ -65,9 +67,27 @@ export default function SettingsPage() {
   };
 
   const handleLeaveFamily = () => {
-    if (confirm('Are you sure you want to leave this family? You can rejoin using the share code.')) {
+    clearFamilyId();
+    window.location.href = '/';
+  };
+
+  const handleDeleteFamily = async () => {
+    if (!family?.id) return;
+    
+    try {
+      const response = await fetch(`/api/family?id=${family.id}`, {
+        method: 'DELETE',
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to delete family');
+      }
+      
       clearFamilyId();
       window.location.href = '/';
+    } catch (err) {
+      console.error('Failed to delete family:', err);
+      alert('Failed to delete family. Please try again.');
     }
   };
 
@@ -299,28 +319,47 @@ export default function SettingsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <Card className="border-[var(--color-error)]">
+            <Card className="border-[var(--color-error)]/30">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-[var(--color-error)]">
-                  <Trash2 size={20} />
+                  <AlertTriangle size={20} />
                   Danger Zone
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
+                {/* Leave Family */}
+                <div className="flex items-center justify-between p-4 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)]/50">
                   <div>
                     <div className="font-medium">Leave Family</div>
                     <div className="text-sm text-[var(--color-foreground-muted)]">
-                      Remove yourself from this family view
+                      Remove yourself from this family. You can rejoin later using the share code.
                     </div>
                   </div>
                   <Button 
                     variant="ghost" 
-                    className="text-[var(--color-error)]"
+                    className="text-[var(--color-error)] hover:bg-[var(--color-error)]/10"
                     icon={LogOut}
-                    onClick={handleLeaveFamily}
+                    onClick={() => setIsLeaveModalOpen(true)}
                   >
                     Leave
+                  </Button>
+                </div>
+
+                {/* Delete Family */}
+                <div className="flex items-center justify-between p-4 rounded-[var(--radius-md)] border border-[var(--color-error)]/30 bg-[var(--color-error)]/5">
+                  <div>
+                    <div className="font-medium text-[var(--color-error)]">Delete Family</div>
+                    <div className="text-sm text-[var(--color-foreground-muted)]">
+                      Permanently delete this family and all its data. All members will lose access.
+                    </div>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    className="text-[var(--color-error)] hover:bg-[var(--color-error)]/10"
+                    icon={Trash2}
+                    onClick={() => setIsDeleteModalOpen(true)}
+                  >
+                    Delete
                   </Button>
                 </div>
               </CardContent>
@@ -341,6 +380,41 @@ export default function SettingsPage() {
         onClose={() => setIsShareModalOpen(false)}
         shareCode={family?.shareCode || ''}
         familyName={family?.name || ''}
+      />
+
+      {/* Leave Family Confirmation */}
+      <ConfirmationModal
+        isOpen={isLeaveModalOpen}
+        onClose={() => setIsLeaveModalOpen(false)}
+        onConfirm={handleLeaveFamily}
+        title="Leave Family?"
+        description={`You are about to leave "${family?.name || 'this family'}".`}
+        bullets={[
+          'You will no longer see this family\'s updates',
+          'You can rejoin anytime using the share code',
+          'Your data will remain in the family'
+        ]}
+        confirmText="Leave Family"
+        cancelText="Stay"
+        variant="default"
+      />
+
+      {/* Delete Family Confirmation */}
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDeleteFamily}
+        title="Delete Family?"
+        description={`You are about to permanently delete "${family?.name || 'this family'}".`}
+        bullets={[
+          'All family members will lose access',
+          'All nudges and data will be deleted',
+          'The share code will become invalid'
+        ]}
+        confirmText="Delete Family"
+        cancelText="Cancel"
+        confirmationWord="DELETE"
+        variant="danger"
       />
     </AppShell>
   );
