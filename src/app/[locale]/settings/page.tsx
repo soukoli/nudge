@@ -1,16 +1,55 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Globe, Palette, Bell, Shield, Trash2, LogOut } from 'lucide-react';
+import { Globe, Palette, Bell, Shield, Trash2, LogOut, Pencil, Check, X } from 'lucide-react';
 import { AppShell } from '@/components/layout';
 import { Card, CardHeader, CardTitle, CardContent, Button, Input, Badge } from '@/components/ui';
 import { ShareModal } from '@/components/modals';
 import { useFamily, clearFamilyId } from '@/hooks';
 
 export default function SettingsPage() {
-  const { family } = useFamily();
+  const { family, updateFamily } = useFamily();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  
+  // Family name editing
+  const [isEditingName, setIsEditingName] = useState(false);
+  const [editedName, setEditedName] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
+
+  // Initialize edited name when family loads
+  useEffect(() => {
+    if (family?.name) {
+      setEditedName(family.name);
+    }
+  }, [family?.name]);
+
+  const handleStartEditing = () => {
+    setEditedName(family?.name || '');
+    setIsEditingName(true);
+  };
+
+  const handleCancelEditing = () => {
+    setEditedName(family?.name || '');
+    setIsEditingName(false);
+  };
+
+  const handleSaveName = async () => {
+    if (!editedName.trim() || editedName.trim() === family?.name) {
+      handleCancelEditing();
+      return;
+    }
+
+    setIsSaving(true);
+    try {
+      await updateFamily({ name: editedName.trim() });
+      setIsEditingName(false);
+    } catch (err) {
+      console.error('Failed to update family name:', err);
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   const handleLeaveFamily = () => {
     if (confirm('Are you sure you want to leave this family? You can rejoin using the share code.')) {
@@ -37,7 +76,50 @@ export default function SettingsPage() {
               <CardContent className="space-y-4">
                 <div>
                   <label className="label">Family Name</label>
-                  <Input value={family?.name || ''} readOnly />
+                  {isEditingName ? (
+                    <div className="flex gap-2">
+                      <Input 
+                        value={editedName} 
+                        onChange={(e) => setEditedName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') handleSaveName();
+                          if (e.key === 'Escape') handleCancelEditing();
+                        }}
+                        autoFocus
+                        disabled={isSaving}
+                      />
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={handleSaveName}
+                        disabled={isSaving}
+                        title="Save"
+                      >
+                        <Check size={18} className="text-[var(--color-success)]" />
+                      </Button>
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={handleCancelEditing}
+                        disabled={isSaving}
+                        title="Cancel"
+                      >
+                        <X size={18} className="text-[var(--color-error)]" />
+                      </Button>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <Input value={family?.name || ''} readOnly />
+                      <Button 
+                        variant="ghost" 
+                        size="icon"
+                        onClick={handleStartEditing}
+                        title="Edit family name"
+                      >
+                        <Pencil size={18} />
+                      </Button>
+                    </div>
+                  )}
                 </div>
                 <div>
                   <label className="label">Share Code</label>

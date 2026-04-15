@@ -184,6 +184,31 @@ export function useFamily() {
     }
   }, []);
 
+  const updateFamily = useCallback(async (updates: { name?: string }): Promise<Family | null> => {
+    if (!family?.id) return null;
+
+    try {
+      const res = await fetch('/api/family', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: family.id, ...updates }),
+      });
+      const data: ApiResponse<Family> = await res.json();
+
+      if (data.success) {
+        setFamily(data.data);
+        return data.data;
+      } else {
+        setError(data.error);
+        return null;
+      }
+    } catch (err) {
+      setError('Failed to update family');
+      console.error(err);
+      return null;
+    }
+  }, [family?.id]);
+
   useEffect(() => {
     fetchFamily();
   }, [fetchFamily]);
@@ -195,6 +220,7 @@ export function useFamily() {
     fetchFamily,
     createFamily,
     joinFamily,
+    updateFamily,
     hasFamily: !!family,
   };
 }
