@@ -319,48 +319,32 @@ export default function SettingsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <Card className="border-[var(--color-error)]/30">
+            <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-[var(--color-error)]">
                   <AlertTriangle size={20} />
                   Danger Zone
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                {/* Leave Family */}
-                <div className="flex items-center justify-between p-4 rounded-[var(--radius-md)] border border-[var(--color-border)] bg-[var(--color-surface)]/50">
-                  <div>
-                    <div className="font-medium">Leave Family</div>
-                    <div className="text-sm text-[var(--color-foreground-muted)]">
-                      Remove yourself from this family. You can rejoin later using the share code.
-                    </div>
+              <CardContent>
+                <div>
+                  <div className="font-medium mb-3">Family Actions</div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setIsLeaveModalOpen(true)}
+                      className="flex items-center gap-2 px-4 py-2 rounded-[var(--radius-md)] border transition-all border-[var(--color-border)] hover:border-[var(--color-error)] hover:bg-[var(--color-error)]/10 hover:text-[var(--color-error)]"
+                    >
+                      <LogOut size={18} />
+                      <span className="text-sm font-medium">Leave</span>
+                    </button>
+                    <button
+                      onClick={() => setIsDeleteModalOpen(true)}
+                      className="flex items-center gap-2 px-4 py-2 rounded-[var(--radius-md)] border transition-all border-[var(--color-error)]/50 text-[var(--color-error)] hover:border-[var(--color-error)] hover:bg-[var(--color-error)]/10"
+                    >
+                      <Trash2 size={18} />
+                      <span className="text-sm font-medium">Delete</span>
+                    </button>
                   </div>
-                  <Button 
-                    variant="ghost" 
-                    className="text-[var(--color-error)] hover:bg-[var(--color-error)]/10"
-                    icon={LogOut}
-                    onClick={() => setIsLeaveModalOpen(true)}
-                  >
-                    Leave
-                  </Button>
-                </div>
-
-                {/* Delete Family */}
-                <div className="flex items-center justify-between p-4 rounded-[var(--radius-md)] border border-[var(--color-error)]/30 bg-[var(--color-error)]/5">
-                  <div>
-                    <div className="font-medium text-[var(--color-error)]">Delete Family</div>
-                    <div className="text-sm text-[var(--color-foreground-muted)]">
-                      Permanently delete this family and all its data. All members will lose access.
-                    </div>
-                  </div>
-                  <Button 
-                    variant="ghost" 
-                    className="text-[var(--color-error)] hover:bg-[var(--color-error)]/10"
-                    icon={Trash2}
-                    onClick={() => setIsDeleteModalOpen(true)}
-                  >
-                    Delete
-                  </Button>
                 </div>
               </CardContent>
             </Card>
