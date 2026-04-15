@@ -1,0 +1,64 @@
+- generic [active] [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - complementary [ref=e13]:
+      - link "Keep Close" [ref=e14] [cursor=pointer]:
+        - /url: /dashboard
+        - img "Keep Close" [ref=e15]
+      - navigation [ref=e16]:
+        - link [ref=e17] [cursor=pointer]:
+          - /url: /dashboard
+          - generic "Dashboard" [ref=e18]:
+            - img [ref=e19]
+        - link [ref=e24] [cursor=pointer]:
+          - /url: /members
+          - generic "Members" [ref=e25]:
+            - img [ref=e26]
+        - link [ref=e31] [cursor=pointer]:
+          - /url: /assets
+          - generic "Assets" [ref=e32]:
+            - img [ref=e33]
+        - link [ref=e36] [cursor=pointer]:
+          - /url: /nudges
+          - generic "Nudges" [ref=e37]:
+            - img [ref=e38]
+      - link [ref=e41] [cursor=pointer]:
+        - /url: /settings
+        - generic "Settings" [ref=e42]:
+          - img [ref=e43]
+    - banner [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - generic [ref=e50]: J
+          - generic [ref=e52]: A
+          - generic [ref=e54]: K
+          - generic [ref=e55]: "+2"
+        - button "Add" [ref=e56] [cursor=pointer]:
+          - img [ref=e57]
+          - text: Add
+      - heading "My Family" [level=1] [ref=e59]
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - img [ref=e62]
+          - textbox "Search..." [ref=e65]
+        - button "Notifications" [ref=e66] [cursor=pointer]:
+          - img [ref=e67]
+        - button "Přepnout na češtinu" [ref=e70] [cursor=pointer]:
+          - img [ref=e71]
+        - button "System (light)" [ref=e74] [cursor=pointer]:
+          - img [ref=e75]
+        - generic [ref=e78] [cursor=pointer]: U
+    - main [ref=e79]:
+      - generic [ref=e80]:
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - heading "Family" [level=1] [ref=e83]
+            - paragraph [ref=e84]: 0 members
+          - button "Add Member" [ref=e85] [cursor=pointer]:
+            - img [ref=e86]
+            - text: Add Member
+        - generic [ref=e89]:
+          - img
+          - textbox "Search family..." [ref=e90]

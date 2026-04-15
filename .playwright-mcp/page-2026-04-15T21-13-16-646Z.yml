@@ -1,0 +1,111 @@
+- generic [ref=e1]:
+  - button "Open Next.js Dev Tools" [ref=e7] [cursor=pointer]:
+    - img [ref=e8]
+  - alert [ref=e11]
+  - generic [ref=e12]:
+    - complementary [ref=e13]:
+      - link "Keep Close" [ref=e14] [cursor=pointer]:
+        - /url: /dashboard
+        - img "Keep Close" [ref=e15]
+      - navigation [ref=e16]:
+        - link [ref=e17] [cursor=pointer]:
+          - /url: /dashboard
+          - generic "Dashboard" [ref=e18]:
+            - img [ref=e19]
+        - link [ref=e24] [cursor=pointer]:
+          - /url: /members
+          - generic "Members" [ref=e25]:
+            - img [ref=e26]
+        - link [ref=e31] [cursor=pointer]:
+          - /url: /assets
+          - generic "Assets" [ref=e32]:
+            - img [ref=e33]
+        - link [ref=e36] [cursor=pointer]:
+          - /url: /nudges
+          - generic "Nudges" [ref=e37]:
+            - img [ref=e38]
+      - link [ref=e41] [cursor=pointer]:
+        - /url: /settings
+        - generic "Settings" [ref=e42]:
+          - img [ref=e43]
+    - banner [ref=e46]:
+      - generic [ref=e47]:
+        - generic [ref=e48]:
+          - generic [ref=e50]: J
+          - generic [ref=e52]: A
+          - generic [ref=e54]: K
+          - generic [ref=e55]: "+2"
+        - button "Add" [ref=e56] [cursor=pointer]:
+          - img [ref=e57]
+          - text: Add
+      - heading "Novákovi" [level=1] [ref=e93]
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - img [ref=e62]
+          - textbox "Search..." [ref=e65]
+        - button "Notifications" [ref=e66] [cursor=pointer]:
+          - img [ref=e67]
+        - button "Přepnout na češtinu" [ref=e70] [cursor=pointer]:
+          - img [ref=e71]
+        - button "System (light)" [ref=e74] [cursor=pointer]:
+          - img [ref=e75]
+        - generic [ref=e78] [cursor=pointer]: U
+    - main [ref=e79]:
+      - generic [ref=e80]:
+        - generic [ref=e81]:
+          - generic [ref=e82]:
+            - heading "Family" [level=1] [ref=e83]
+            - paragraph [ref=e84]: 0 members
+          - button "Add Member" [ref=e85] [cursor=pointer]:
+            - img [ref=e86]
+            - text: Add Member
+        - generic [ref=e89]:
+          - img
+          - textbox "Search family..." [ref=e90]
+        - generic [ref=e94]:
+          - img [ref=e95]
+          - paragraph [ref=e98]: No family members yet
+          - paragraph [ref=e99]: Start by adding your first family member
+          - button "Add Your First Member" [active] [ref=e100] [cursor=pointer]
+      - generic [ref=e102]:
+        - generic [ref=e103]:
+          - heading "Add Family Member" [level=2] [ref=e104]
+          - button "Close modal" [ref=e105]:
+            - img [ref=e106]
+        - generic [ref=e110]:
+          - generic [ref=e112]:
+            - generic [ref=e114]: "N"
+            - button "Upload photo" [ref=e115]:
+              - img [ref=e116]
+          - generic [ref=e119]:
+            - generic [ref=e120]: Name *
+            - generic [ref=e121]:
+              - img
+              - textbox "Name *" [ref=e122]:
+                - /placeholder: Enter member's name
+          - generic [ref=e123]:
+            - generic [ref=e124]: Nickname (optional)
+            - generic [ref=e125]:
+              - img
+              - textbox "Nickname (optional)" [ref=e126]:
+                - /placeholder: e.g., Dad, Mom, Grandma...
+          - generic [ref=e127]:
+            - generic [ref=e128]: Member Type
+            - generic [ref=e129]:
+              - combobox "Member Type" [ref=e130] [cursor=pointer]:
+                - option "Adult" [selected]
+                - option "Baby (0-1)"
+                - option "Toddler (1-3)"
+                - option "Preschooler (3-6)"
+                - option "School Age (6-12)"
+                - option "Teenager (13-18)"
+              - img
+          - generic [ref=e131]:
+            - generic [ref=e132]: Birth Date (optional)
+            - generic [ref=e133]:
+              - img
+              - textbox "Birth Date (optional)" [ref=e134]
+          - paragraph [ref=e135]: Add family members to keep everyone close.
+        - generic [ref=e136]:
+          - button "Cancel" [ref=e137] [cursor=pointer]
+          - button "Add Member" [ref=e138] [cursor=pointer]

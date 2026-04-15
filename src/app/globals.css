@@ -542,9 +542,9 @@ body {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -552,14 +552,20 @@ body {
 }
 
 .modal-content {
-  background: var(--color-background);
-  border: 1px solid var(--glass-border);
+  background-color: #fefefe;
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: var(--radius-xl);
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
   max-width: 480px;
   width: 90%;
   max-height: 90vh;
   overflow: auto;
+}
+
+/* Dark mode modal */
+html.dark .modal-content {
+  background-color: #1a1a1f;
+  border-color: rgba(255, 255, 255, 0.1);
 }
 
 .modal-header {
