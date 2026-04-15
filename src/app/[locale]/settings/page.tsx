@@ -1,15 +1,23 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useLocale } from 'next-intl';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Globe, Palette, Bell, Shield, Trash2, LogOut, Pencil, Check, X } from 'lucide-react';
+import { Globe, Palette, Bell, Shield, Trash2, LogOut, Pencil, Check, X, Sun, Moon, Monitor } from 'lucide-react';
 import { AppShell } from '@/components/layout';
 import { Card, CardHeader, CardTitle, CardContent, Button, Input, Badge } from '@/components/ui';
 import { ShareModal } from '@/components/modals';
 import { useFamily, clearFamilyId } from '@/hooks';
+import { useTheme } from '@/components/ThemeProvider';
 
 export default function SettingsPage() {
   const { family, updateFamily } = useFamily();
+  const { theme, setTheme } = useTheme();
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+  
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   
   // Family name editing
@@ -51,12 +59,28 @@ export default function SettingsPage() {
     }
   };
 
+  const handleLocaleChange = (newLocale: string) => {
+    const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, '');
+    router.push(`/${newLocale}${pathWithoutLocale}`);
+  };
+
   const handleLeaveFamily = () => {
     if (confirm('Are you sure you want to leave this family? You can rejoin using the share code.')) {
       clearFamilyId();
       window.location.href = '/';
     }
   };
+
+  const themeOptions = [
+    { value: 'light', label: 'Light', icon: Sun },
+    { value: 'dark', label: 'Dark', icon: Moon },
+    { value: 'system', label: 'System', icon: Monitor },
+  ] as const;
+
+  const languageOptions = [
+    { value: 'en', label: 'English' },
+    { value: 'cs', label: 'Čeština' },
+  ] as const;
 
   return (
     <AppShell familyName={family?.name}>
@@ -151,14 +175,28 @@ export default function SettingsPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-medium">Theme</div>
-                    <div className="text-sm text-[var(--color-foreground-muted)]">
-                      Follows your system preference
-                    </div>
+                <div>
+                  <div className="font-medium mb-3">Theme</div>
+                  <div className="flex gap-2">
+                    {themeOptions.map((option) => {
+                      const Icon = option.icon;
+                      const isSelected = theme === option.value;
+                      return (
+                        <button
+                          key={option.value}
+                          onClick={() => setTheme(option.value)}
+                          className={`flex items-center gap-2 px-4 py-2 rounded-[var(--radius-md)] border transition-all ${
+                            isSelected
+                              ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)] text-[var(--color-primary)]'
+                              : 'border-[var(--color-border)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)]'
+                          }`}
+                        >
+                          <Icon size={18} />
+                          <span className="text-sm font-medium">{option.label}</span>
+                        </button>
+                      );
+                    })}
                   </div>
-                  <Badge>System</Badge>
                 </div>
               </CardContent>
             </Card>
@@ -178,14 +216,26 @@ export default function SettingsPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="font-medium">Display Language</div>
-                    <div className="text-sm text-[var(--color-foreground-muted)]">
-                      Change language via header toggle
-                    </div>
+                <div>
+                  <div className="font-medium mb-3">Display Language</div>
+                  <div className="flex gap-2">
+                    {languageOptions.map((option) => {
+                      const isSelected = locale === option.value;
+                      return (
+                        <button
+                          key={option.value}
+                          onClick={() => handleLocaleChange(option.value)}
+                          className={`flex items-center gap-2 px-4 py-2 rounded-[var(--radius-md)] border transition-all ${
+                            isSelected
+                              ? 'border-[var(--color-primary)] bg-[var(--color-primary-light)] text-[var(--color-primary)]'
+                              : 'border-[var(--color-border)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)]'
+                          }`}
+                        >
+                          <span className="text-sm font-medium">{option.label}</span>
+                        </button>
+                      );
+                    })}
                   </div>
-                  <Badge>English</Badge>
                 </div>
               </CardContent>
             </Card>

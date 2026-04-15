@@ -30,16 +30,22 @@ The app is functional with core features implemented. The focus now shifts from 
 ### What Needs Refinement
 
 **Terminology Cleanup**
-- [ ] Rename "checks" to "nudges" throughout
-- [ ] Remove scoring/tracking language
+- [x] Rename "checks" to "nudges" throughout
+- [x] Remove scoring/tracking language
+- [x] Simplify status indicators (no percentages)
 - [ ] Update "completed" to "seen" or remove entirely
-- [ ] Simplify status indicators (no percentages)
 
 **Philosophy Alignment**
-- [ ] Dashboard should show today's nudges, not completion stats
-- [ ] Remove "family health score" concept
+- [x] Dashboard should show today's nudges, not completion stats
+- [x] Remove "family health score" concept
 - [ ] Make interactions optional (seen vs. checked)
 - [ ] Add community wisdom sharing (future)
+
+**UI Improvements**
+- [x] Move Theme/Language settings from Header to Settings page
+- [x] Fix modal overlay transparency
+- [x] Fix Input icon overlap with placeholder text
+- [x] Add family name editing in Settings
 
 ## Build Status
 

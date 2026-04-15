@@ -1,20 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { useLocale } from 'next-intl';
-import { useRouter, usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   Search,
   Bell,
-  Moon,
-  Sun,
-  Globe,
   Plus,
-  Monitor,
 } from 'lucide-react';
 import { Button, Avatar } from '@/components/ui';
-import { useTheme } from '@/components/ThemeProvider';
 
 interface HeaderProps {
   familyName?: string;
@@ -30,42 +23,6 @@ export function Header({
   onAddNew,
 }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const { theme, resolvedTheme, setTheme } = useTheme();
-  const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
-
-  const toggleTheme = () => {
-    // Cycle through: light -> dark -> system -> light
-    if (theme === 'light') {
-      setTheme('dark');
-    } else if (theme === 'dark') {
-      setTheme('system');
-    } else {
-      setTheme('light');
-    }
-  };
-
-  const toggleLocale = () => {
-    const newLocale = locale === 'cs' ? 'en' : 'cs';
-    const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, '');
-    router.push(`/${newLocale}${pathWithoutLocale}`);
-  };
-
-  // Get icon and title based on current theme
-  const getThemeIcon = () => {
-    if (theme === 'system') {
-      return <Monitor size={20} />;
-    }
-    return resolvedTheme === 'dark' ? <Moon size={20} /> : <Sun size={20} />;
-  };
-
-  const getThemeTitle = () => {
-    if (theme === 'system') {
-      return `System (${resolvedTheme})`;
-    }
-    return theme === 'dark' ? 'Dark mode' : 'Light mode';
-  };
 
   return (
     <header className="header">
@@ -104,7 +61,7 @@ export function Header({
         </motion.h1>
       </div>
 
-      {/* Right: Search, Notifications, Settings */}
+      {/* Right: Search, Notifications, User */}
       <div className="flex items-center gap-3">
         {/* Search */}
         <div className="relative hidden md:block">
@@ -124,26 +81,6 @@ export function Header({
         {/* Notifications */}
         <Button variant="ghost" size="icon" title="Notifications">
           <Bell size={20} />
-        </Button>
-
-        {/* Language Toggle */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={toggleLocale}
-          title={locale === 'cs' ? 'Switch to English' : 'Přepnout na češtinu'}
-        >
-          <Globe size={20} />
-        </Button>
-
-        {/* Theme Toggle */}
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={toggleTheme}
-          title={getThemeTitle()}
-        >
-          {getThemeIcon()}
         </Button>
 
         {/* User Avatar */}
