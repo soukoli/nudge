@@ -3,6 +3,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Manrope } from "next/font/google";
+import { ThemeProvider } from '@/components/ThemeProvider';
 import '../globals.css';
 
 const manrope = Manrope({
@@ -38,10 +39,13 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html 
       lang={locale} 
       className={`${manrope.variable} antialiased`}
+      suppressHydrationWarning
     >
       <body style={{ fontFamily: 'var(--font-manrope), system-ui, sans-serif' }}>
         <NextIntlClientProvider messages={messages}>
-          {children}
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>

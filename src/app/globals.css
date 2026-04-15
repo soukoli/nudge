@@ -62,37 +62,35 @@
 }
 
 /* ============================================
-   LIGHT MODE
+   LIGHT MODE - Applied via .light class
    ============================================ */
-@media (prefers-color-scheme: light) {
-  @theme inline {
-    --color-primary: #E85A4F;
-    --color-primary-hover: #D14A3F;
-    --color-primary-light: rgba(232, 90, 79, 0.1);
-    
-    --color-secondary: #E09B4A;
-    --color-secondary-light: rgba(224, 155, 74, 0.1);
-    
-    --color-success: #059669;
-    --color-success-light: rgba(5, 150, 105, 0.1);
-    --color-warning: #D97706;
-    --color-warning-light: rgba(217, 119, 6, 0.1);
-    --color-error: #DC2626;
-    --color-error-light: rgba(220, 38, 38, 0.1);
-    
-    --color-foreground: #1a1a1a;
-    --color-foreground-muted: #6b7280;
-    --color-background: #fefefe;
-    --color-surface: rgba(255, 255, 255, 0.8);
-    --color-border: rgba(0, 0, 0, 0.08);
-    
-    --gradient-start: #fef7f7;
-    --gradient-end: #f5f0ff;
-    
-    --glass-bg: rgba(255, 255, 255, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.5);
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  }
+html.light {
+  --color-primary: #E85A4F;
+  --color-primary-hover: #D14A3F;
+  --color-primary-light: rgba(232, 90, 79, 0.1);
+  
+  --color-secondary: #E09B4A;
+  --color-secondary-light: rgba(224, 155, 74, 0.1);
+  
+  --color-success: #059669;
+  --color-success-light: rgba(5, 150, 105, 0.1);
+  --color-warning: #D97706;
+  --color-warning-light: rgba(217, 119, 6, 0.1);
+  --color-error: #DC2626;
+  --color-error-light: rgba(220, 38, 38, 0.1);
+  
+  --color-foreground: #1a1a1a;
+  --color-foreground-muted: #6b7280;
+  --color-background: #fefefe;
+  --color-surface: rgba(255, 255, 255, 0.8);
+  --color-border: rgba(0, 0, 0, 0.08);
+  
+  --gradient-start: #fef7f7;
+  --gradient-end: #f5f0ff;
+  
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 /* ============================================

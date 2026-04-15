@@ -11,8 +11,10 @@ import {
   Sun,
   Globe,
   Plus,
+  Monitor,
 } from 'lucide-react';
 import { Button, Avatar } from '@/components/ui';
+import { useTheme } from '@/components/ThemeProvider';
 
 interface HeaderProps {
   familyName?: string;
@@ -28,21 +30,41 @@ export function Header({
   onAddNew,
 }: HeaderProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [isDark, setIsDark] = useState(false);
+  const { theme, resolvedTheme, setTheme } = useTheme();
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
 
   const toggleTheme = () => {
-    setIsDark(!isDark);
-    // In a real app, this would toggle a class on document.documentElement
-    // and persist to localStorage
+    // Cycle through: light -> dark -> system -> light
+    if (theme === 'light') {
+      setTheme('dark');
+    } else if (theme === 'dark') {
+      setTheme('system');
+    } else {
+      setTheme('light');
+    }
   };
 
   const toggleLocale = () => {
     const newLocale = locale === 'cs' ? 'en' : 'cs';
     const pathWithoutLocale = pathname.replace(/^\/[a-z]{2}/, '');
     router.push(`/${newLocale}${pathWithoutLocale}`);
+  };
+
+  // Get icon and title based on current theme
+  const getThemeIcon = () => {
+    if (theme === 'system') {
+      return <Monitor size={20} />;
+    }
+    return resolvedTheme === 'dark' ? <Moon size={20} /> : <Sun size={20} />;
+  };
+
+  const getThemeTitle = () => {
+    if (theme === 'system') {
+      return `System (${resolvedTheme})`;
+    }
+    return theme === 'dark' ? 'Dark mode' : 'Light mode';
   };
 
   return (
@@ -119,9 +141,9 @@ export function Header({
           variant="ghost"
           size="icon"
           onClick={toggleTheme}
-          title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+          title={getThemeTitle()}
         >
-          {isDark ? <Sun size={20} /> : <Moon size={20} />}
+          {getThemeIcon()}
         </Button>
 
         {/* User Avatar */}
