@@ -42,8 +42,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             id={inputId}
-            className={`input ${Icon && iconPosition === 'left' ? 'pl-12' : ''} ${
-              Icon && iconPosition === 'right' ? 'pr-12' : ''
+            className={`input ${Icon && iconPosition === 'left' ? 'input-with-icon-left' : ''} ${
+              Icon && iconPosition === 'right' ? 'input-with-icon-right' : ''
             } ${error ? 'border-[var(--color-error)] focus:border-[var(--color-error)] focus:shadow-none' : ''} ${className}`}
             {...props}
           />
