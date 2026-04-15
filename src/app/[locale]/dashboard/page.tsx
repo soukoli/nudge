@@ -66,29 +66,20 @@ export default function DashboardPage() {
     });
   }, [members, nudges]);
 
-  // Calculate family "happiness" status
+  // Calculate family status - gentle, no scores
   const familyStatus = useMemo(() => {
-    const activeNudges = nudges.filter(n => n.isActive);
-    const completedToday = activeNudges.filter(n => {
-      if (!n.lastDoneAt) return false;
-      const today = new Date();
-      const lastDone = new Date(n.lastDoneAt);
-      return lastDone.toDateString() === today.toDateString();
-    }).length;
-    const total = activeNudges.length;
-
-    const completionRate = total > 0 ? completedToday / total : 1;
+    // Just determine general "vibe" - no percentages
+    const hasOverdueNudges = todayNudges.length > 3;
+    const hasSomeNudges = todayNudges.length > 0;
+    
     let overallStatus: 'excellent' | 'good' | 'needsAttention' = 'excellent';
-    if (completionRate < 0.3) overallStatus = 'needsAttention';
-    else if (completionRate < 0.7) overallStatus = 'good';
+    if (hasOverdueNudges) overallStatus = 'needsAttention';
+    else if (hasSomeNudges) overallStatus = 'good';
 
     return {
       overallStatus,
-      completedChecks: completedToday,
-      totalChecks: total,
-      trend: completionRate > 0.7 ? 'up' : completionRate < 0.3 ? 'down' : 'stable' as 'up' | 'down' | 'stable',
     };
-  }, [nudges]);
+  }, [todayNudges]);
 
   // Handlers
   const handleCreateFamily = async () => {
@@ -148,6 +139,7 @@ export default function DashboardPage() {
           members={memberNodes}
           familyName={family?.name || 'My Family'}
           familyStatus={familyStatus}
+          todayNudges={todayNudges.map(n => n.title)}
           onMemberSelect={handleMemberSelect}
           onQuickAction={handleQuickAction}
         />
@@ -229,7 +221,7 @@ export default function DashboardPage() {
             </div>
           </button>
           <button
-            onClick={() => router.push('/checks')}
+            onClick={() => router.push('/nudges')}
             className="flex items-center gap-4 p-4 rounded-[var(--radius-lg)] border border-[var(--color-border)] hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-light)] transition-all text-left"
           >
             <div className="w-12 h-12 rounded-full bg-[var(--color-primary-light)] flex items-center justify-center">

@@ -1,112 +1,128 @@
 # Keep Close - Project Context
 
-## Vision & Purpose
+## Vision
 
-**Keep Close** is a minimalist family connection app that helps maintain emotional bonds with family and loved ones. Unlike productivity apps, Keep Close focuses on the **health and continuity of family relationships**.
+**Keep Close** is a minimal app that gently reminds people of meaningful relationships and small acts of care in their daily life.
+
+It does not track, measure, or enforce behavior — it simply surfaces what matters, so nothing important is forgotten.
 
 ### Tagline
 > "Keep your family close — even when life gets fast."
 
-### Core Philosophy
-- **Not about productivity** - about family health and emotional connection
-- **Gentle reminders** for small, meaningful actions (calls, quality time)
-- **Zero friction, no overwhelm** - simple, beautiful interface
-- **"Make invisible care visible"** - surface the small acts of love that keep families together
+### The Problem We Solve
+
+Modern life is fast. Families drift apart not because they don't care, but because they forget. They forget to call. They forget the small moments. They forget what makes a family feel like home.
+
+Keep Close is the gentle voice that says: *"Hey, maybe call mom today"* — without guilt, without scores, without judgment.
+
+## Core Philosophy
+
+### What This App IS
+- A gentle reminder of what matters
+- A place to see your family at a glance
+- Simple suggestions that surface daily
+- A tool that makes invisible care visible
+
+### What This App IS NOT
+- A task manager
+- A productivity tool
+- A habit tracker with scores
+- Something that judges you
+
+### Key Principles
+
+1. **No Tracking** — We don't count how often you call your mom
+2. **No Scores** — There's no "family health percentage" to stress about
+3. **No Checkboxes** — You don't "complete" love
+4. **Just Visibility** — See what matters, that's enough
+
+## How It Works
+
+### 1. Setup (Playful & Simple)
+- Add your family members (parents, kids, siblings, grandparents)
+- Add special things (pets, shared house, family car)
+- Optionally add "things I don't want to forget" (nudges)
+
+No complex configuration. Just names and relationships.
+
+### 2. Daily Screen (The Whole Product)
+When you open the app, you see today's gentle reminders:
+
+```
+"Ask your daughter about school"
+"Call your parents"
+"Play with the cat"
+```
+
+That's it. Nothing more.
+
+### 3. Interaction Model
+- **No checkboxes** — You don't tick off "called mom"
+- **Optional acknowledgment** — Maybe just "I saw this"
+- **No guilt** — Tomorrow is a new day
+
+The app shows what's important. What you do with it is your choice.
+
+## The Nudge System
+
+### What is a Nudge?
+A nudge is a gentle reminder — not a task. It appears, you see it, and that's enough.
+
+### Types of Nudges
+- **Quality Time** — "Spend time with [person]"
+- **Check In** — "How is [person] doing?"
+- **Appreciation** — "Tell [person] something nice"
+- **Care** — "Take care of [asset/pet]"
+- **Remember** — "Don't forget about [thing]"
+
+### Nudge Behavior
+- Nudges appear based on simple rules (daily, weekly, monthly)
+- They rotate so you don't see the same thing every day
+- You can add your own or use community suggestions
+- They disappear after you've seen them (no lingering guilt)
+
+## Future Vision: Wisdom Sharing
+
+Families learn. They discover what works. They develop rituals and habits that keep them close.
+
+**Community Wisdom** — Families can share their nudges with others:
+- "We found that Sunday dinners really helped"
+- "Asking about friends, not just grades, changed everything"
+- "A weekly walk with grandpa made him so happy"
+
+These shared wisdoms become nudge templates that other families can adopt.
 
 ## Target Users
-- Busy families who want to stay connected
-- People with elderly parents they want to check on regularly
-- Families with shared assets (house, car, cottage) requiring maintenance
-- Anyone who values family relationships but struggles with consistent connection
 
-## Core Features
+- Busy parents who want to stay connected with their kids
+- Adults with aging parents they don't want to forget
+- Families that feel disconnected but don't know why
+- Anyone who values relationships but struggles with consistency
 
-### 1. Family Dashboard (Priority)
-- **Floating avatars** of family members arranged around a central status hub
-- **d3-force simulation** for natural, organic layout
-- **Visual health indicators** showing connection status with each member
-- **Quick actions** - call, message, schedule time together
+## Design Philosophy
 
-### 2. Family Members
-- Profile with photo, relationship, contact info
-- **Connection metrics** - last contact, check completion rate
-- **Personal checks** - reminders specific to that person (call mom weekly, visit grandpa monthly)
+### Emotional Tone
+- **Warm, not cold** — This is about love
+- **Gentle, not urgent** — No red alerts
+- **Simple, not overwhelming** — One screen matters
+- **Personal, not corporate** — It's your family
 
-### 3. Assets (Shared Property)
-- Track family assets: house, car, cottage, etc.
-- **Maintenance checks** - oil change, roof inspection, garden care
-- Shared responsibility across family members
-
-### 4. Checks System
-- **Templates** - pre-defined recurring tasks (22 templates in seed)
-- **Auto-creation** - checks automatically added when member/asset created
-- **Status tracking** - overdue (red), pending (yellow), completed (green)
-- **Completion history** - track who completed what and when
-
-### 5. Sidebar Navigation (80px, icons only)
-- Dashboard (home)
-- Members
-- Assets
-- Checks
-- Settings
-
-## Design System v2
-
-### Design Philosophy
-- **Warmth over coldness** - Family is warm, use warm colors
-- **Confidence in simplicity** - Don't fill every space
-- **Typography as design** - Let Manrope speak
-- **Motion with purpose** - Subtle, not distracting
-- **Approachable, not corporate** - This is for families, not enterprises
-
-### Typography
-- **Font**: Manrope (Google Fonts)
-- Clean, modern, highly readable
-- Large, confident headings with tight letter-spacing
-
-### Colors
-
-**Dark Mode (Primary):**
-- Background: Deep charcoal (#0a0a0b) - true dark, not blue-ish
-- Surfaces: #111113, #18181b, #1f1f23
-- Accent: Soft coral (#FF8A7A) - warm, inviting
-- Secondary: Warm amber (#FFB366)
-- Text: #fafafa (primary), #a1a1aa (secondary), #71717a (muted)
-
-**Light Mode:**
-- Background: Pure white (#ffffff)
-- Surfaces: #fafafa, #f4f4f5
-- Accent: Deeper coral (#E85A4F) for contrast
-- Text: #09090b (primary), #3f3f46 (secondary)
-
-**Status Colors (Both Modes):**
-- Success: Soft mint (#6EE7B7 dark / #059669 light)
-- Warning: Soft yellow (#FCD34D dark / #D97706 light)
-- Error: Soft red (#FCA5A5 dark / #DC2626 light)
-
-### Components Style
-- **Cards**: Subtle borders, no heavy shadows or glass morphism everywhere
-- **Rounded corners**: 6px (xs) to 28px (xl)
-- **Buttons**: Fully rounded (pill shape), warm accent color
-- **Icons**: Lucide icon set only
-- **Animations**: Framer Motion for purposeful transitions
-
-### Logo
-- Blue heart icon (srdce.png in .claude folder)
-- Symbolizes connection and communication
-- Used in sidebar and central hub
+### Visual Design
+- Dark mode primary (cozy evening feel)
+- Warm coral accents (not cold blue)
+- Floating family members on dashboard
+- Clean, confident typography (Manrope)
 
 ## Technical Stack
 
-- **Framework**: Next.js 16+ (App Router)
+- **Framework**: Next.js 15+ (App Router)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS 4 + CSS custom properties
+- **Styling**: Tailwind CSS 4
 - **Database**: PostgreSQL + Prisma 7
-- **i18n**: next-intl (CS/EN)
+- **i18n**: next-intl (Czech/English)
 - **Animations**: Framer Motion
-- **Physics**: d3-force for floating layout
+- **Layout**: d3-force for floating avatars
 - **Icons**: Lucide React
-- **Deployment**: Vercel
 
 ## File Structure
 
@@ -114,55 +130,31 @@
 src/
 ├── app/
 │   ├── [locale]/
-│   │   ├── layout.tsx        # Root layout with AppShell
-│   │   ├── page.tsx          # Landing page
-│   │   ├── dashboard/        # Main floating dashboard
-│   │   ├── members/          # Family members list/detail
-│   │   ├── assets/           # Assets list/detail
-│   │   ├── checks/           # Checks table view
-│   │   └── settings/         # App settings
-│   ├── api/                  # API routes
-│   └── globals.css           # Design system v2
+│   │   ├── dashboard/     # Main daily view
+│   │   ├── members/       # Family members
+│   │   ├── assets/        # Pets, property, things
+│   │   ├── nudges/        # Manage nudges
+│   │   └── settings/      # Preferences
+│   └── api/               # Backend endpoints
 ├── components/
-│   ├── ui/                   # Base components (Button, Input, Modal, Card, Avatar, Badge)
-│   ├── layout/               # AppShell, Sidebar, Header
-│   ├── dashboard/            # FamilyCanvas, FloatingAvatar, FamilyStatusHub
-│   ├── modals/               # Add modals
-│   ├── checks/               # Check-related components
-│   └── pages/                # LandingPage
-├── hooks/                    # Custom hooks (useForceLayout, useMediaQuery, useFamily, etc.)
-├── lib/                      # Utilities, Prisma client, types
-├── i18n/                     # next-intl configuration
-└── messages/                 # Translation files (cs.json, en.json)
+│   ├── ui/                # Base components
+│   ├── layout/            # App shell
+│   ├── dashboard/         # Daily view components
+│   └── nudges/            # Nudge components
+├── hooks/                 # React hooks
+├── lib/                   # Utilities
+└── messages/              # Translations
 ```
 
-## Database Schema (Prisma)
+## Success Metrics (Internal Only)
 
-- **Family** - root entity, has invite code for sharing
-- **FamilyMember** - people in family (name, role, avatar, birthdate)
-- **Asset** - shared property (type: CAR, HOUSE, COTTAGE, OTHER)
-- **Check** - task/reminder linked to member or asset
-- **CheckTemplate** - reusable check templates
-- **CheckCompletion** - history of completed checks
-
-## API Endpoints
-
-- `GET/POST /api/family` - Family CRUD
-- `GET/POST /api/members` - Members CRUD
-- `GET/POST /api/assets` - Assets CRUD
-- `GET/POST/PATCH /api/checks` - Checks CRUD + completion
-- `GET/POST /api/templates` - Check templates
-
-## Key UX Principles
-
-1. **Emotion over efficiency** - warm colors, gentle animations
-2. **Glanceable status** - see family health at a glance
-3. **Non-judgmental** - no guilt, just gentle nudges
-4. **Personal** - feels like your family, not a corporate tool
-5. **Desktop-first, mobile-ready** - works beautifully on desktop, list view on mobile
+We don't track users. But we know we're successful when:
+- People open the app daily (not because they have to, but because they want to)
+- Families report feeling more connected
+- The app disappears into routine — it's just part of the day
 
 ## Reference Materials
 
-- Dashboard design: `.claude/dashboard.jpg`
+- Dashboard inspiration: `.claude/dashboard.jpg`
 - Component patterns: `.claude/components.jpg`
-- Logo: `.claude/srdce.png`
+- Logo (blue heart): `.claude/srdce.png`

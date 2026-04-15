@@ -2,50 +2,41 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
+import { Heart, Sun, Coffee } from 'lucide-react';
 
 export interface FamilyStatusHubProps {
   familyName: string;
   overallStatus: 'excellent' | 'good' | 'needsAttention';
-  completedChecks: number;
-  totalChecks: number;
-  trend?: 'up' | 'down' | 'stable';
+  todayNudges?: string[];
 }
 
 const statusConfig = {
   excellent: {
     className: 'excellent',
     color: 'var(--color-success)',
-    label: 'Excellent',
+    message: 'All is well',
+    Icon: Heart,
   },
   good: {
     className: 'good',
     color: 'var(--color-warning)',
-    label: 'Good',
+    message: 'Stay connected',
+    Icon: Sun,
   },
   needsAttention: {
     className: 'needs-attention',
     color: 'var(--color-error)',
-    label: 'Needs Attention',
+    message: 'Reach out today',
+    Icon: Coffee,
   },
-};
-
-const TrendIcon = {
-  up: TrendingUp,
-  down: TrendingDown,
-  stable: Minus,
 };
 
 export function FamilyStatusHub({
   familyName,
   overallStatus,
-  completedChecks,
-  totalChecks,
-  trend = 'stable',
+  todayNudges = [],
 }: FamilyStatusHubProps) {
-  const { className, color, label } = statusConfig[overallStatus];
-  const percentage = totalChecks > 0 ? Math.round((completedChecks / totalChecks) * 100) : 0;
-  const Icon = TrendIcon[trend];
+  const { className, color, message, Icon } = statusConfig[overallStatus];
 
   return (
     <div className="status-hub">
@@ -64,26 +55,24 @@ export function FamilyStatusHub({
           className="mb-1"
         />
         
-        {/* Percentage */}
+        {/* Status icon */}
         <motion.div 
-          className="text-3xl font-bold" 
-          style={{ color }}
+          className="flex items-center gap-2"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          {percentage}%
+          <Icon size={24} style={{ color }} />
         </motion.div>
         
-        {/* Status label */}
+        {/* Gentle message */}
         <motion.div 
-          className="flex items-center gap-1 text-sm text-[var(--color-foreground-muted)]"
+          className="text-sm text-[var(--color-foreground-muted)] text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
         >
-          <Icon size={14} style={{ color }} />
-          <span>{label}</span>
+          {message}
         </motion.div>
       </motion.div>
 
@@ -95,9 +84,11 @@ export function FamilyStatusHub({
         transition={{ delay: 0.4 }}
       >
         <h2 className="text-xl font-semibold mb-1">{familyName}</h2>
-        <p className="text-sm text-[var(--color-foreground-muted)]">
-          {completedChecks} of {totalChecks} checks completed
-        </p>
+        {todayNudges.length > 0 && (
+          <p className="text-sm text-[var(--color-foreground-muted)]">
+            {todayNudges.length} gentle {todayNudges.length === 1 ? 'reminder' : 'reminders'} today
+          </p>
+        )}
       </motion.div>
     </div>
   );

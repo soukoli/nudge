@@ -8,7 +8,7 @@ import {
   LayoutDashboard,
   Users,
   Home,
-  CheckSquare,
+  Heart,
   Settings,
 } from 'lucide-react';
 
@@ -22,7 +22,7 @@ const navItems: NavItem[] = [
   { href: '/dashboard', icon: <LayoutDashboard size={22} />, label: 'Dashboard' },
   { href: '/members', icon: <Users size={22} />, label: 'Members' },
   { href: '/assets', icon: <Home size={22} />, label: 'Assets' },
-  { href: '/checks', icon: <CheckSquare size={22} />, label: 'Checks' },
+  { href: '/nudges', icon: <Heart size={22} />, label: 'Nudges' },
 ];
 
 const bottomNavItems: NavItem[] = [

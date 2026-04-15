@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Keep Close
+
+> Keep your family close — even when life gets fast.
+
+A minimal app that gently reminds you of meaningful relationships and small acts of care in your daily life.
+
+**It does not track, measure, or enforce behavior — it simply surfaces what matters, so nothing important is forgotten.**
+
+## What is Keep Close?
+
+Modern life is fast. Families drift apart not because they don't care, but because they forget. They forget to call. They forget the small moments. They forget what makes a family feel like home.
+
+Keep Close is the gentle voice that says: *"Hey, maybe call mom today"* — without guilt, without scores, without judgment.
+
+### What This App Does
+
+- Shows you gentle reminders about your family
+- Displays your family members in a beautiful, floating dashboard
+- Lets you add "nudges" — things you don't want to forget
+- Works on desktop and mobile
+
+### What This App Does NOT Do
+
+- Track your behavior
+- Score your "family health"
+- Make you feel guilty
+- Require constant interaction
+
+## Screenshots
+
+*Coming soon*
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- PostgreSQL (or Docker)
+- npm/yarn/pnpm
+
+### Installation
 
 ```bash
+# Clone the repository
+git clone https://github.com/soukoli/nudge.git
+cd nudge
+
+# Install dependencies
+npm install
+
+# Start PostgreSQL (with Docker)
+docker compose up -d
+
+# Setup database
+npm run db:setup
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create a `.env` file:
 
-## Learn More
+```env
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/keepclose"
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework**: [Next.js 15+](https://nextjs.org/) (App Router)
+- **Language**: TypeScript
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Database**: PostgreSQL + [Prisma 7](https://www.prisma.io/)
+- **i18n**: [next-intl](https://next-intl-docs.vercel.app/) (Czech/English)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Layout**: [d3-force](https://d3js.org/d3-force) for floating avatars
+- **Icons**: [Lucide React](https://lucide.dev/)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── [locale]/        # Internationalized routes
+│   │   ├── dashboard/   # Main daily view
+│   │   ├── members/     # Family members
+│   │   ├── assets/      # Pets, property
+│   │   ├── nudges/      # Manage nudges
+│   │   └── settings/    # Preferences
+│   └── api/             # Backend endpoints
+├── components/          # React components
+│   ├── ui/              # Base components
+│   ├── layout/          # App shell
+│   └── dashboard/       # Dashboard components
+├── hooks/               # Custom React hooks
+├── lib/                 # Utilities
+└── messages/            # Translation files
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Philosophy
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### No Tracking
+We don't count how often you call your mom. That's between you and her.
+
+### No Scores
+There's no "family health percentage" to stress about. Life isn't a game.
+
+### No Checkboxes
+You don't "complete" love. You just show up.
+
+### Just Visibility
+See what matters. That's enough.
+
+## Contributing
+
+This is currently a personal project. If you're interested in contributing, please open an issue first to discuss what you'd like to change.
+
+## License
+
+MIT
+
+---
+
+Made with care for families everywhere.

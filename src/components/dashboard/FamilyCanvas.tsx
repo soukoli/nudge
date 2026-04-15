@@ -18,6 +18,7 @@ export interface FamilyCanvasProps {
   members: FamilyMemberNode[];
   familyStatus: Omit<FamilyStatusHubProps, 'familyName'>;
   familyName: string;
+  todayNudges?: string[];
   onMemberSelect?: (id: string) => void;
   onQuickAction?: (memberId: string, action: 'call' | 'message' | 'schedule') => void;
 }
@@ -26,6 +27,7 @@ export function FamilyCanvas({
   members,
   familyStatus,
   familyName,
+  todayNudges = [],
   onMemberSelect,
   onQuickAction,
 }: FamilyCanvasProps) {
@@ -74,14 +76,12 @@ export function FamilyCanvas({
           animate={{ opacity: 1, y: 0 }}
         >
           <h2 className="text-xl font-semibold mb-2">{familyName}</h2>
-          <div className="text-4xl font-bold text-[var(--color-primary)] mb-2">
-            {familyStatus.totalChecks > 0
-              ? Math.round((familyStatus.completedChecks / familyStatus.totalChecks) * 100)
-              : 0}%
+          <div className="text-lg text-[var(--color-foreground-muted)] mb-2">
+            {todayNudges.length > 0 
+              ? `${todayNudges.length} gentle ${todayNudges.length === 1 ? 'reminder' : 'reminders'} today`
+              : 'All is well today'
+            }
           </div>
-          <p className="text-sm text-[var(--color-foreground-muted)]">
-            {familyStatus.completedChecks} of {familyStatus.totalChecks} checks completed
-          </p>
         </motion.div>
 
         {/* Members List */}
@@ -141,9 +141,7 @@ export function FamilyCanvas({
       <FamilyStatusHub
         familyName={familyName}
         overallStatus={familyStatus.overallStatus}
-        completedChecks={familyStatus.completedChecks}
-        totalChecks={familyStatus.totalChecks}
-        trend={familyStatus.trend}
+        todayNudges={todayNudges}
       />
 
       {/* Floating Avatars */}

@@ -127,7 +127,7 @@ export default function SettingsPage() {
                   <div>
                     <div className="font-medium">Push Notifications</div>
                     <div className="text-sm text-[var(--color-foreground-muted)]">
-                      Get notified about overdue checks
+                      Gentle daily reminders about your family
                     </div>
                   </div>
                   <Badge variant="default">Coming Soon</Badge>
@@ -154,7 +154,8 @@ export default function SettingsPage() {
                   Your family data is stored securely and is only accessible to those with your share code.
                 </p>
                 <p className="text-sm text-[var(--color-foreground-muted)]">
-                  We don't track, analyze, or sell your personal information.
+                  We don't track behavior, measure performance, or sell your personal information. 
+                  Keep Close simply shows what matters — nothing more.
                 </p>
               </CardContent>
             </Card>

@@ -1,138 +1,149 @@
 # Keep Close - Architecture Decisions
 
-## ADR-001: Replace Consta UI with Custom Components
+## Philosophy Decisions
 
-**Status**: Accepted & Implemented
+### PD-001: No Tracking, No Scores
 
-**Context**: Consta UI was initially used for rapid prototyping but doesn't align with the warm, personal aesthetic needed for Keep Close.
+**Context**: The app could easily become another task tracker with completion rates and streaks. That's not what families need.
 
-**Decision**: Build custom components using:
-- Tailwind CSS for styling
-- Lucide React for icons
-- Framer Motion for animations
-- Manrope font for typography
+**Decision**: 
+- No completion percentages
+- No streaks or scores
+- No "you missed X days" guilt
+- Nudges appear and disappear — that's enough
 
-**Consequences**: 
-- More control over design
+**Rationale**: Families aren't projects to be managed. Love isn't measured in checkboxes.
+
+---
+
+### PD-002: Visibility Over Action
+
+**Context**: Traditional apps require action (check, complete, dismiss). This creates obligation.
+
+**Decision**: 
+- Showing a nudge is enough
+- User can optionally mark "seen" 
+- No required interaction
+- Nudges rotate naturally
+
+**Rationale**: The value is in surfacing what matters, not in tracking whether you did it.
+
+---
+
+### PD-003: Gentle Language
+
+**Context**: Words shape experience. "Task", "check", "overdue" create stress.
+
+**Decision**: Use warm, gentle language:
+- "Nudge" instead of "task" or "check"
+- "Reminder" instead of "alert"
+- "Seen" instead of "completed"
+- No "overdue" — just "you might want to..."
+
+**Rationale**: This is about care, not compliance.
+
+---
+
+## Technical Decisions
+
+### TD-001: Custom Components Over UI Libraries
+
+**Status**: Implemented
+
+**Decision**: Build custom components with Tailwind + Framer Motion instead of using UI libraries like Consta.
+
+**Rationale**: 
+- Full control over warm, personal aesthetic
 - Smaller bundle size
-- Consistent with design vision
+- No fighting library defaults
 
 ---
 
-## ADR-002: d3-force for Floating Layout
-
-**Status**: Accepted & Implemented
-
-**Context**: The dashboard needs organic, floating avatars that don't overlap and feel natural.
-
-**Decision**: Use d3-force simulation with:
-- `forceRadial` - circular arrangement around center
-- `forceCollide` - prevent overlapping
-- `forceCenter` - keep centered in viewport
-
-**Consequences**:
-- ~15KB additional bundle
-- Natural, physics-based movement
-- Responsive to container size
-
----
-
-## ADR-003: Mobile List View
-
-**Status**: Accepted & Implemented
-
-**Context**: Floating canvas doesn't work well on small screens.
-
-**Decision**: On mobile (<768px), show a vertical list of family members instead of the floating canvas.
-
-**Consequences**:
-- Better mobile UX
-- Simpler touch interactions
-- Need to maintain two layouts
-
----
-
-## ADR-004: Dark Mode First with Warm Accents
-
-**Status**: Accepted (Replaced ADR about Glass Morphism)
-
-**Context**: Initial pink-purple gradient with heavy glass morphism looked generic - like every AI-generated template.
-
-**Decision**: Dark mode as primary with:
-- Deep charcoal background (#0a0a0b) - not blue-ish
-- Warm coral accent (#FF8A7A) - family-friendly
-- Amber secondary (#FFB366)
-- Subtle borders instead of heavy shadows
-- Glass morphism only for floating elements
-
-**Consequences**:
-- Unique, non-template aesthetic
-- Warm and inviting feel
-- Better readability
-- Light mode as minimal alternative (pure black/white)
-
----
-
-## ADR-005: Sidebar Icons Only (80px)
-
-**Status**: Accepted & Implemented
-
-**Context**: Maximize content area while maintaining navigation.
-
-**Decision**: Sidebar shows only icons by default (80px width). No expand functionality needed - keep it minimal.
-
-**Consequences**:
-- More space for dashboard
-- Cleaner interface
-- Icons must be self-explanatory (use tooltips)
-
----
-
-## ADR-006: Check Templates Auto-Creation
+### TD-002: d3-force for Floating Layout
 
 **Status**: Implemented
 
-**Context**: Users shouldn't have to manually create common checks for each family member.
+**Decision**: Use d3-force simulation for the family dashboard with floating avatars.
 
-**Decision**: When a member or asset is created, automatically create checks from relevant templates based on:
-- Member role (ADULT, CHILD variants)
-- Asset type (CAR, HOUSE, COTTAGE)
+**Configuration**:
+- `forceRadial` — circular arrangement around center
+- `forceCollide` — prevent overlapping
+- `forceCenter` — keep centered in viewport
 
-**Consequences**:
-- Immediate value for new users
-- May create unwanted checks (provide easy deletion)
-- Templates need to be well-curated
+**Rationale**: Creates organic, living feel — family members float naturally, not in a grid.
 
 ---
 
-## ADR-007: Prisma 7 with Adapter Pattern
+### TD-003: Mobile List Fallback
 
 **Status**: Implemented
 
-**Context**: Prisma 7 no longer supports direct database URLs in schema.
+**Decision**: On screens < 768px, show vertical list instead of floating canvas.
 
-**Decision**: Use `@prisma/adapter-pg` with explicit adapter configuration in `prisma.config.ts`.
-
-**Consequences**:
-- Modern Prisma setup
-- Better connection pooling potential
-- Different initialization pattern than Prisma 5/6
+**Rationale**: 
+- Touch interactions with floating elements are awkward
+- List is more scannable on small screens
+- Maintains functionality without compromising UX
 
 ---
 
-## ADR-008: Typography-Driven Design
+### TD-004: Dark Mode First
 
-**Status**: Accepted (New)
+**Status**: Implemented
 
-**Context**: Need to leverage Manrope font beyond just applying it.
+**Decision**: Dark mode as primary, light mode as alternative.
 
-**Decision**: Use typography as a primary design element:
-- Large, confident headings with tight letter-spacing (-0.02em to -0.03em)
-- Clear hierarchy: display (60px), headline (36px), title (24px)
-- Gradient text for emphasis
-- text-micro for labels (uppercase, spaced)
+**Colors**:
+- Background: Deep charcoal (#0a0a0b)
+- Accent: Warm coral (#FF8A7A)
+- Secondary: Amber (#FFB366)
 
-**Consequences**:
-- Stronger visual hierarchy
-- More modern appearance
-- Requires consistent application across all pages
+**Rationale**: 
+- Evening usage likely (checking family before bed)
+- Warm colors feel cozy, not corporate
+- Light mode remains minimal (pure black/white)
+
+---
+
+### TD-005: Icons-Only Sidebar (72px)
+
+**Status**: Implemented
+
+**Decision**: Sidebar shows only icons, no labels. Fixed 72px width.
+
+**Rationale**:
+- Maximizes content area
+- Dashboard is the star, not navigation
+- Icons with tooltips are sufficient
+
+---
+
+### TD-006: Prisma 7 Adapter Pattern
+
+**Status**: Implemented
+
+**Decision**: Use `@prisma/adapter-pg` with explicit configuration.
+
+**Rationale**: Modern Prisma setup, required for Prisma 7+.
+
+---
+
+## Rejected Decisions
+
+### RD-001: Auto-Create Checks from Templates
+
+**Previous Decision**: Automatically create checks when member/asset is added.
+
+**Why Rejected**: Creates immediate overwhelm. User should consciously add what they care about.
+
+**New Approach**: Offer suggestions, but user chooses what to add.
+
+---
+
+### RD-002: Family Health Score
+
+**Previous Decision**: Central hub shows "family health" as percentage.
+
+**Why Rejected**: Scoring creates pressure and guilt. Reduces relationships to metrics.
+
+**New Approach**: Hub shows today's gentle reminders, no numerical score.
